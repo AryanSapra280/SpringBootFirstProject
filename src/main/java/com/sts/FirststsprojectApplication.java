@@ -32,6 +32,13 @@ public class FirststsprojectApplication {
 		userMatched.setName("Arun");
 		User afterUpdate = userRepository.save(userMatched);
 		System.out.println("After update" + afterUpdate);
+
+		List<User>userByName = userRepository.findByName("Aryan");
+		System.out.println("User found by name" + userByName);
+
+		System.out.println("ALl user found with @Query ANnotation:" + userRepository.getAllUser());
+
+		System.out.println("ALl user found with @Query Annotation and @Param:" + userRepository.getUserByName("Aryan"));
 	}
 
 }
