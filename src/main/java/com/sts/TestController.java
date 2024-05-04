@@ -12,4 +12,12 @@ public class TestController {
 	public String handleTest() {
 		return "this is project using sts";
 	}
+
+	@RequestMapping("/sum")
+	@ResponseBody
+	public String getResult() {
+		int a = 11;
+		int b = 200;
+		return String.format("Sum of %d and %d is %d",a,b,a+b);
+	}
 }
