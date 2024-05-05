@@ -26,19 +26,19 @@ public class FirststsprojectApplication {
 		// to save multiple user, we can create a list/set and pass it to saveAll(list/set) method
 
 		//To Update
-		Optional<User> userFound = userRepository.findById(52L);
-		User userMatched = userFound.get();
-		System.out.println("Before update" + userMatched);
-		userMatched.setName("Arun");
-		User afterUpdate = userRepository.save(userMatched);
-		System.out.println("After update" + afterUpdate);
-
-		List<User>userByName = userRepository.findByName("Aryan");
-		System.out.println("User found by name" + userByName);
-
-		System.out.println("ALl user found with @Query ANnotation:" + userRepository.getAllUser());
-
-		System.out.println("ALl user found with @Query Annotation and @Param:" + userRepository.getUserByName("Aryan"));
+//		Optional<User> userFound = userRepository.findById(52L);
+//		User userMatched = userFound.get();
+//		System.out.println("Before update" + userMatched);
+//		userMatched.setName("Arun");
+//		User afterUpdate = userRepository.save(userMatched);
+//		System.out.println("After update" + afterUpdate);
+//
+//		List<User>userByName = userRepository.findByName("Aryan");
+//		System.out.println("User found by name" + userByName);
+//
+//		System.out.println("ALl user found with @Query ANnotation:" + userRepository.getAllUser());
+//
+//		System.out.println("ALl user found with @Query Annotation and @Param:" + userRepository.getUserByName("Aryan"));
 	}
 
 }
