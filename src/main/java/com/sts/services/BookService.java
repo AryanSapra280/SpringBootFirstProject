@@ -2,6 +2,9 @@ package com.sts.services;
 
 import com.sts.entities.Book;
 import com.sts.repositories.BookRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,8 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
+    @PersistenceContext
+    private EntityManager entityManager;
     public BookService() {
         super();
     }
@@ -44,5 +49,19 @@ public class BookService {
     public List<Book> deleteBookById(Integer id) {
         bookRepository.deleteById(id);
         return bookRepository.getAllBooks();
+    }
+
+    @Transactional
+    public Book updateBookById(Integer id,Book book) {
+        Optional<Book> oldBook = bookRepository.findById(id);
+        if(oldBook.isEmpty()) {
+            return null;
+        }
+        bookRepository.updateAuthorByBookId(book.getAuthor(),id);
+        entityManager.refresh(oldBook.get()); // this or flush() forces the persistence context to update with the changes if we
+        // have written custom query
+        //We required @Transactional annotation because we want to call the flush or refresh method otherwise spring will consider
+        // these methods as outside the context of transaction and will throw error.
+        return bookRepository.findById(id).get();
     }
 }
