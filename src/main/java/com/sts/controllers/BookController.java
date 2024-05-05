@@ -44,4 +44,9 @@ public class BookController {
     public List<Book> deleteBookById(@PathVariable("id")Integer id) {
         return bookService.deleteBookById(id);
     }
+
+    @PutMapping("/update/{id}")
+    public Book updateBookById(@PathVariable("id") Integer id, @RequestBody Book book) {
+        return bookService.updateBookById(id,book);
+    }
 }
