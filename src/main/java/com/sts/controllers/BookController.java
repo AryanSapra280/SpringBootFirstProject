@@ -4,9 +4,12 @@ import com.sts.services.BookService;
 import com.sts.entities.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class BookController {
@@ -21,9 +24,13 @@ public class BookController {
     }
 
     @GetMapping("/books")
-    public List<Book> getBooks() {
+    public ResponseEntity<List<Book>> getBooks() {
         List<Book> books = bookService.getAllBooks();
-        return books;
+        if(books.size() == 0) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+//        return new ResponseEntity<Book>(books, HttpStatus.ACCEPTED);
+        return ResponseEntity.of(Optional.ofNullable(books));
     }
 
     @GetMapping("/book/{id}")
